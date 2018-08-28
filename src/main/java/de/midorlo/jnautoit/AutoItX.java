@@ -15,6 +15,7 @@
  */
 package de.midorlo.jnautoit;
 
+import com.sun.jna.platform.win32.WTypes.LPWSTR;
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.WinDef.DWORD;
 import com.sun.jna.platform.win32.WinDef.HWND;
@@ -25,11 +26,17 @@ import com.sun.jna.platform.win32.WinDef.HWND;
  */
 public class AutoItX {
 
-    AutoItXLibrary LIB;
+    final AutoItXLibrary LIB;
+    private static AutoItX INSTANCE;
 
-    public AutoItX() {
+    AutoItX() {
         LIB = (AutoItXLibrary) Native.loadLibrary(("AutoItX3_x64.dll"), AutoItXLibrary.class);
         LIB.AU3_Init();
+        INSTANCE = this;
+    }
+    
+    public static AutoItX getInstance() {
+        return (null == INSTANCE) ? new AutoItX() : INSTANCE;
     }
 
     public static void main(String[] args) {

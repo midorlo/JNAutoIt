@@ -16,6 +16,7 @@
 package de.midorlo.jnautoit;
 
 import com.sun.jna.Library;
+import com.sun.jna.platform.win32.WTypes.LPWSTR;
 import com.sun.jna.platform.win32.WinDef.DWORD;
 import com.sun.jna.platform.win32.WinDef.HWND;
 
@@ -304,10 +305,10 @@ public interface AutoItXLibrary extends Library {
 class LPCWSTR {
     //WString
 }
-
-class LPWSTR {
-//WString
-}
+//
+//class LPWSTR {
+////WString
+//}
 
 //class HWND {
 //
