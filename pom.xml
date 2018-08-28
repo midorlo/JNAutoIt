@@ -12,4 +12,12 @@
     </properties>
     <name>JNAutoIt</name>
     <description>JNAutoIt - Java Native Access for AutoIt</description>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+    </dependencies>
 </project>
