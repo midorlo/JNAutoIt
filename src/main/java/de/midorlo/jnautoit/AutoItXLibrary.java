@@ -16,6 +16,8 @@
 package de.midorlo.jnautoit;
 
 import com.sun.jna.Library;
+import com.sun.jna.platform.win32.WinDef.DWORD;
+import com.sun.jna.platform.win32.WinDef.HWND;
 
 /**
  *
@@ -23,6 +25,7 @@ import com.sun.jna.Library;
  */
 public interface AutoItXLibrary extends Library {
 
+//    com.sun.jna.platform.win32.WinDef.HWND x;
     
     String AU3_WinMinimizeAll();
 
@@ -299,25 +302,25 @@ public interface AutoItXLibrary extends Library {
 
 
 class LPCWSTR {
-
+    //WString
 }
 
 class LPWSTR {
-
+//WString
 }
 
-class HWND {
-
-}
+//class HWND {
+//
+//}
 
 class LPRECT {
 
 }
 
-class DWORD {
-
-}
-
+//class DWORD {
+//
+//}
+//
 class LPPOINT {
 
 }
