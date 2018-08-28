@@ -30,8 +30,6 @@ public class AutoItX {
         INSTANCEA.AU3_Init();
     }
     
-    
-
     public static void main(String[] args) {
         new AutoItX().INSTANCEA.AU3_Init();
     }

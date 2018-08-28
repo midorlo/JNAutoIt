@@ -16,7 +16,6 @@
 package de.midorlo.jnautoit;
 
 import com.sun.jna.Library;
-import com.sun.jna.Native;
 
 /**
  *
@@ -267,7 +266,12 @@ public interface AutoItXLibrary extends Library {
 
     int AU3_WinSetStateByHandle(HWND hWnd, int nFlags);
 
-    int AU3_WinSetTitle(LPCWSTR szTitle,/*[in,defaultvalue("")]*/ LPCWSTR szText, LPCWSTR szNewTitle);
+    int AU3_WinSetTitle(LPCWSTR szTitle,LPCWSTR szTitledefaultvalue, LPCWSTR szText, LPCWSTR szNewTitle);
+    
+    default int AU3_WinSetTitle(LPCWSTR szTitle,LPCWSTR szText, LPCWSTR szNewTitle) {
+        
+        return AU3_WinSetTitle( szTitle,null,  szText, szNewTitle);
+    }
 
     int AU3_WinSetTitleByHandle(HWND hWnd, LPCWSTR szNewTitle);
 
