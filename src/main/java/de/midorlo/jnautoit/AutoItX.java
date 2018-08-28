@@ -15,26 +15,25 @@
  */
 package de.midorlo.jnautoit;
 
-import com.sun.jna.Library;
 import com.sun.jna.Native;
 
 /**
  *
  * @author midorlo
  */
-public class Main {
+public class AutoItX {
+
+    AutoItXLibrary INSTANCEA;
+
+    public AutoItX() {
+        INSTANCEA = (AutoItXLibrary) Native.loadLibrary(("AutoItX3_x64.dll"), AutoItXLibrary.class);
+        INSTANCEA.AU3_Init();
+    }
     
-    static {
-        
-    }
-    public interface AutoItX extends Library {
-        AutoItX INSTANCEA = (AutoItX)
-            Native.loadLibrary(("AutoItX3_x64.dll"),AutoItX.class);
-        String AU3_WinMinimizeAll();
-    }
+    
 
     public static void main(String[] args) {
-        AutoItX.INSTANCEA.AU3_WinMinimizeAll();
+        new AutoItX().INSTANCEA.AU3_Init();
     }
-    
+
 }
