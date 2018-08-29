@@ -12,6 +12,13 @@
     </properties>
     <name>JNAutoIt</name>
     <description>JNAutoIt - Java Native Access for AutoIt</description>
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
+    </repositories>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
         <dependency>
@@ -23,6 +30,14 @@
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna-platform</artifactId>
             <version>4.5.2</version>
+        </dependency>
+        
+        <!-- http://jcenter.bintray.com/artifact/net.java.dev.jna/jna -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.10</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

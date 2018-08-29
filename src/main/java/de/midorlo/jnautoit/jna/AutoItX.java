@@ -30,7 +30,7 @@ import com.sun.jna.platform.win32.WinDef.RECT;
  */
 public class AutoItX {
 
-    protected final AutoItXLibrary LIB;
+    final AutoItXLibrary LIB;
     private static AutoItX INSTANCE;
 
     AutoItX() {
