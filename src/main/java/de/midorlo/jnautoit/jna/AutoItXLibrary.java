@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.midorlo.jnautoit;
+package de.midorlo.jnautoit.jna;
 
 import com.sun.jna.Library;
 import com.sun.jna.Pointer;
@@ -22,13 +22,13 @@ import com.sun.jna.platform.win32.WTypes.LPWSTR;
 import com.sun.jna.platform.win32.WinDef.DWORD;
 import com.sun.jna.platform.win32.WinDef.HWND;
 import com.sun.jna.platform.win32.WinDef.RECT;
-import static de.midorlo.jnautoit.Constants.AU3_INTDEFAULT;
+import static de.midorlo.jnautoit.jna.Constants.AU3_INTDEFAULT;
 
 /**
  *
  * @author midorlo
  */
-public interface AutoItXLibrary extends Library {
+interface AutoItXLibrary extends Library {
    
     String AU3_WinMinimizeAll();
 

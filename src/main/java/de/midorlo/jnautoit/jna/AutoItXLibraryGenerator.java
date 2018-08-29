@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.midorlo.jnautoit;
+package de.midorlo.jnautoit.jna;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 /**
- *
+ * Util Class which helped me generate the interface. Stays here
+ * in case I need it again.
  * @author midorlo
  */
-class JNAUtils {
+class AutoItXLibraryGenerator {
 
     protected static void printJavaMethods() {
         Method[] methods = new AutoItX().LIB.getClass().getMethods();

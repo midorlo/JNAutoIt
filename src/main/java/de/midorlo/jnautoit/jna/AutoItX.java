@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.midorlo.jnautoit;
+package de.midorlo.jnautoit.jna;
 
 import com.sun.jna.platform.win32.WTypes.LPWSTR;
 import com.sun.jna.Native;
@@ -30,7 +30,7 @@ import com.sun.jna.platform.win32.WinDef.RECT;
  */
 public class AutoItX {
 
-    final AutoItXLibrary LIB;
+    protected final AutoItXLibrary LIB;
     private static AutoItX INSTANCE;
 
     AutoItX() {
