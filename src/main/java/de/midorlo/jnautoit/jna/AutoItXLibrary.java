@@ -23,13 +23,14 @@ import com.sun.jna.platform.win32.WinDef.DWORD;
 import com.sun.jna.platform.win32.WinDef.HWND;
 import com.sun.jna.platform.win32.WinDef.RECT;
 import static de.midorlo.jnautoit.jna.Constants.AU3_INTDEFAULT;
+import static de.midorlo.jnautoit.jna.Constants.SW_SHOWNORMAL;
 
 /**
  *
  * @author midorlo
  */
 interface AutoItXLibrary extends Library {
-   
+
     String AU3_WinMinimizeAll();
 
     void AU3_Init();
@@ -41,15 +42,23 @@ interface AutoItXLibrary extends Library {
     void AU3_ClipGet(LPWSTR szClip, int nBufSize);
 
     void AU3_ClipPut(WString szClip);
-    
+
     default int AU3_ControlClick(WString szTitle, WString szText, WString szControl, WString szButton, int nNumClicks) {
-        return AU3_ControlClick(szTitle,  szText,  szControl,  szButton,  nNumClicks, AU3_INTDEFAULT, AU3_INTDEFAULT);
+        return AU3_ControlClick(szTitle, szText, szControl, szButton, nNumClicks, AU3_INTDEFAULT, AU3_INTDEFAULT);
     }
-        
-    int AU3_ControlClick(WString szTitle, WString szText, WString szControl, WString szButton, int nNumClicks, int nX, int nY);  
-        
-//    int AU3_ControlClickByHandle(HWND hWnd, HWND hCtrl, WString szButton, int nNumClicks, int nX = AU3_INTDEFAULT, int nY = AU3_INTDEFAULT);
-        
+    
+    default int AU3_ControlClick(WString szTitle, WString szText, WString szControl, WString szButton, int nNumClicks, int nX) {
+        return AU3_ControlClick(szTitle, szText, szControl, szButton, nNumClicks, nX, AU3_INTDEFAULT);
+    }
+
+    int AU3_ControlClick(WString szTitle, WString szText, WString szControl, WString szButton, int nNumClicks, int nX, int nY);
+
+    default int AU3_ControlClickByHandle(HWND hWnd, HWND hCtrl, WString szButton, int nNumClicks) {
+        return AU3_ControlClickByHandle(hWnd, hCtrl, szButton, nNumClicks, AU3_INTDEFAULT, AU3_INTDEFAULT);
+    }
+
+    int AU3_ControlClickByHandle(HWND hWnd, HWND hCtrl, WString szButton, int nNumClicks, int nX, int nY);
+
     void AU3_ControlCommand(WString szTitle, WString szText, WString szControl, WString szCommand, WString szExtra, LPWSTR szResult, int nBufSize);
 
     void AU3_ControlCommandByHandle(HWND hWnd, HWND hCtrl, WString szCommand, WString szExtra, LPWSTR szResult, int nBufSize);
@@ -90,14 +99,30 @@ interface AutoItXLibrary extends Library {
 
     int AU3_ControlHideByHandle(HWND hWnd, HWND hCtrl);
 
-//    int AU3_ControlMove(WString szTitle, WString szText, WString szControl, int nX, int nY, int nWidth= -1, int nHeight = -1);
+    default int AU3_ControlMove(WString szTitle, WString szText, WString szControl, int nX, int nY) {
+        return AU3_ControlMove(szTitle, szText, szControl, nX, nY, -1, -1);
+    }
 
-//    int AU3_ControlMoveByHandle(HWND hWnd, HWND hCtrl, int nX, int nY, int nWidth= -1, int nHeight = -1 );
-   
-//    int AU3_ControlSend(WString szTitle, WString szText, WString szControl, WString szSendText, int nMode= 0);
-    
-//    int AU3_ControlSendByHandle(HWND hWnd, HWND hCtrl, WString szSendText, int nMode= 0);
-    
+    int AU3_ControlMove(WString szTitle, WString szText, WString szControl, int nX, int nY, int nWidth, int nHeight);
+
+    default int AU3_ControlMoveByHandle(HWND hWnd, HWND hCtrl, int nX, int nY) {
+        return AU3_ControlMoveByHandle(hWnd, hCtrl, nX, nY, -1, -1);
+    }
+
+    int AU3_ControlMoveByHandle(HWND hWnd, HWND hCtrl, int nX, int nY, int nWidth, int nHeight);
+
+    public default int AU3_ControlSend(WString szTitle, WString szText, WString szControl, WString szSendText) {
+        return AU3_ControlSend(szTitle, szText, szControl, szSendText, 0);
+    }
+
+    int AU3_ControlSend(WString szTitle, WString szText, WString szControl, WString szSendText, int nMode);
+
+    default int AU3_ControlSendByHandle(HWND hWnd, HWND hCtrl, WString szSendText) {
+        return AU3_ControlSendByHandle(hWnd, hCtrl, szSendText, 0);
+    }
+
+    int AU3_ControlSendByHandle(HWND hWnd, HWND hCtrl, WString szSendText, int nMode);
+
     int AU3_ControlSetText(WString szTitle, WString szText, WString szControl, WString szControlText);
 
     int AU3_ControlSetTextByHandle(HWND hWnd, HWND hCtrl, WString szControlText);
@@ -118,26 +143,42 @@ interface AutoItXLibrary extends Library {
 
     int AU3_IsAdmin();
 
-//    int AU3_MouseClick(/*[in,defaultvalue("LEFT")]*/WString szButton, int nX= AU3_INTDEFAULT, int nY = AU3_INTDEFAULT, int nClicks = 1, int nSpeed = -1);
+    default int AU3_MouseClick(/*[in,defaultvalue("LEFT")]*/WString szButton) {
+        return AU3_MouseClick(/*[in,defaultvalue("LEFT")]*/szButton, AU3_INTDEFAULT, AU3_INTDEFAULT, 1, -1);
+    }
 
-//    int AU3_MouseClickDrag(WString szButton, int nX1, int nY1, int nX2, int nY2, int nSpeed= -1);
-        
+    int AU3_MouseClick(/*[in,defaultvalue("LEFT")]*/WString szButton, int nX, int nY, int nClicks, int nSpeed);
+
+    default int AU3_MouseClickDrag(WString szButton, int nX1, int nY1, int nX2, int nY2) {
+        return AU3_MouseClickDrag(szButton, nX1, nY1, nX2, nY2, -1);
+    }
+
+    int AU3_MouseClickDrag(WString szButton, int nX1, int nY1, int nX2, int nY2, int nSpeed);
+
     void AU3_MouseDown(/*[in,defaultvalue("LEFT")]*/WString szButton);
 
     int AU3_MouseGetCursor();
 
-        void AU3_MouseGetPos(Pointer lpPoint);
+    void AU3_MouseGetPos(Pointer lpPoint);
 
-//        int AU3_MouseMove(int nX, int nY, int nSpeed= -1);
-        
+    default int AU3_MouseMove(int nX, int nY) {
+        return AU3_MouseMove(nX, nY, -1);
+    }
+
+    int AU3_MouseMove(int nX, int nY, int nSpeed);
+
     void AU3_MouseUp(/*[in,defaultvalue("LEFT")]*/WString szButton);
 
     void AU3_MouseWheel(WString szDirection, int nClicks);
 
     int AU3_Opt(WString szOption, int nValue);
 
-//        unsigned int AU3_PixelChecksum(RECT lpRect, int nStep = 1);
-    
+    default UnsignedInt AU3_PixelChecksum(RECT lpRect) {
+        return AU3_PixelChecksum(lpRect, 1);
+    }
+
+    UnsignedInt AU3_PixelChecksum(RECT lpRect, int nStep);
+
     int AU3_PixelGetColor(int nX, int nY);
 
     void AU3_PixelSearch(RECT lpRect, int nCol, /*default 0*/ int nVar, /*default 1*/ int nStep, Pointer pPointResult);
@@ -148,20 +189,48 @@ interface AutoItXLibrary extends Library {
 
     int AU3_ProcessSetPriority(WString szProcess, int nPriority);
 
-//    int AU3_ProcessWait(WString szProcess, int nTimeout = 0);
-    
-//    int AU3_ProcessWaitClose(WString szProcess, int nTimeout = 0);
+    default int AU3_ProcessWait(WString szProcess) {
+        return AU3_ProcessWait(szProcess, 0);
+    }
 
-//    int AU3_Run(WString szProgram, /*[in,defaultvalue("")]*/ WString szDir, int nShowFlag = SW_SHOWNORMAL);
+    int AU3_ProcessWait(WString szProcess, int nTimeout);
 
-//    int AU3_RunWait(WString szProgram, /*[in,defaultvalue("")]*/ WString szDir, int nShowFlag = SW_SHOWNORMAL);
+    default int AU3_ProcessWaitClose(WString szProcess) {
+        return AU3_ProcessWaitClose(szProcess, 0);
+    }
 
-//    int AU3_RunAs(WString szUser, WString szDomain, WString szPassword, int nLogonFlag, WString szProgram, /*[in,defaultvalue("")]*/ WString szDir, int nShowFlag= SW_SHOWNORMAL);
+    int AU3_ProcessWaitClose(WString szProcess, int nTimeout);
 
-//    int AU3_RunAsWait(WString szUser, WString szDomain, WString szPassword, int nLogonFlag, WString szProgram, /*[in,defaultvalue("")]*/ WString szDir, int nShowFlag= SW_SHOWNORMAL);
+    default int AU3_Run(WString szProgram, /*[in,defaultvalue("")]*/ WString szDir) {
+        return AU3_Run(szProgram, szDir, SW_SHOWNORMAL);
+    }
 
-//    void AU3_Send(WString szSendText, int nMode= 0);
-    
+    int AU3_Run(WString szProgram, /*[in,defaultvalue("")]*/ WString szDir, int nShowFlag); // = SW_SHOWNORMAL
+
+    default int AU3_RunWait(WString szProgram, /*[in,defaultvalue("")]*/ WString szDir) {
+        return AU3_RunWait(szProgram, /*[in,defaultvalue("")]*/ szDir, SW_SHOWNORMAL);
+    }
+
+    int AU3_RunWait(WString szProgram, /*[in,defaultvalue("")]*/ WString szDir, int nShowFlag);
+
+    default int AU3_RunAs(WString szUser, WString szDomain, WString szPassword, int nLogonFlag, WString szProgram, /*[in,defaultvalue("")]*/ WString szDir) {
+        return AU3_RunAs(szUser, szDomain, szPassword, nLogonFlag, szProgram, /*[in,defaultvalue("")]*/ szDir, SW_SHOWNORMAL);
+    }
+
+    int AU3_RunAs(WString szUser, WString szDomain, WString szPassword, int nLogonFlag, WString szProgram, /*[in,defaultvalue("")]*/ WString szDir, int nShowFlag);
+
+    default int AU3_RunAsWait(WString szUser, WString szDomain, WString szPassword, int nLogonFlag, WString szProgram, /*[in,defaultvalue("")]*/ WString szDir) {
+        return AU3_RunAsWait(szUser, szDomain, szPassword, nLogonFlag, szProgram, /*[in,defaultvalue("")]*/ szDir, SW_SHOWNORMAL);
+    }
+
+    int AU3_RunAsWait(WString szUser, WString szDomain, WString szPassword, int nLogonFlag, WString szProgram, /*[in,defaultvalue("")]*/ WString szDir, int nShowFlag);
+
+    default void AU3_Send(WString szSendText) {
+        AU3_Send(szSendText, 0);
+    }
+
+    void AU3_Send(WString szSendText, int nMode);
+
     int AU3_Shutdown(int nFlags);
 
     void AU3_Sleep(int nMilliseconds);
@@ -170,8 +239,16 @@ interface AutoItXLibrary extends Library {
 
     int AU3_StatusbarGetTextByHandle(HWND hWnd, /*[in,defaultvalue(1)]*/ int nPart, LPWSTR szStatusText, int nBufSize);
 
-//    void AU3_ToolTip(WString szTip, int nX= AU3_INTDEFAULT, int nY = AU3_INTDEFAULT);
-    
+    default void AU3_ToolTip(WString szTip) {
+        AU3_ToolTip(szTip, AU3_INTDEFAULT, AU3_INTDEFAULT);
+    }
+
+    default void AU3_ToolTip(WString szTip, int nX) {
+        AU3_ToolTip(szTip, nX, AU3_INTDEFAULT);
+    }
+
+    void AU3_ToolTip(WString szTip, int nX, int nY);
+
     int AU3_WinActivate(WString szTitle, /*[in,defaultvalue("")]*/ WString szText);
 
     int AU3_WinActivateByHandle(HWND hWnd);
@@ -180,7 +257,7 @@ interface AutoItXLibrary extends Library {
 
     int AU3_WinActiveByHandle(HWND hWnd);
 
-    int AU3_WinClose(String szTitle, /*[in,defaultvalue("")]*/ String szText);
+    int AU3_WinClose(WString szTitle, /*[in,defaultvalue("")]*/ WString szText);
 
     int AU3_WinCloseByHandle(HWND hWnd);
 
@@ -232,10 +309,22 @@ interface AutoItXLibrary extends Library {
 
     void AU3_WinMinimizeAllUndo();
 
-//    int AU3_WinMove(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nX, int nY, int nWidth= -1, int nHeight = -1);
+    default int AU3_WinMove(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nX, int nY) {
+        return AU3_WinMove(szTitle, /*[in,defaultvalue("")]*/ szText, nX, nY, -1, -1);
+    }
 
-//    int AU3_WinMoveByHandle(HWND hWnd, int nX, int nY, int nWidth, int nHeight = -1);
-    
+    default int AU3_WinMove(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nX, int nY, int nWidth) {
+        return AU3_WinMove(szTitle, /*[in,defaultvalue("")]*/ szText, nX, nY, nWidth, -1);
+    }
+
+    int AU3_WinMove(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nX, int nY, int nWidth, int nHeight);
+
+    default int AU3_WinMoveByHandle(HWND hWnd, int nX, int nY, int nWidth) {
+        return AU3_WinMoveByHandle(hWnd, nX, nY, nWidth, -1);
+    }
+
+    int AU3_WinMoveByHandle(HWND hWnd, int nX, int nY, int nWidth, int nHeight);
+
     int AU3_WinSetOnTop(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nFlag);
 
     int AU3_WinSetOnTopByHandle(HWND hWnd, int nFlag);
@@ -256,19 +345,29 @@ interface AutoItXLibrary extends Library {
 
     int AU3_WinSetTransByHandle(HWND hWnd, int nTrans);
 
-//        int AU3_WinWait(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nTimeout= 0);
-    
-        int AU3_WinWaitByHandle(HWND hWnd, int nTimeout);
+    default int AU3_WinWait(WString szTitle, /*[in,defaultvalue("")]*/ WString szText) {
+        return AU3_WinWait(szTitle, /*[in,defaultvalue("")]*/ szText, 0);
+    }
 
-//        int AU3_WinWaitActive(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nTimeout = 0);
-        
-        int AU3_WinWaitActiveByHandle(HWND hWnd, int nTimeout);
+    int AU3_WinWait(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nTimeout);
 
-//        int AU3_WinWaitClose(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nTimeout = 0);
-        
+    int AU3_WinWaitByHandle(HWND hWnd, int nTimeout);
+
+    default int AU3_WinWaitActive(WString szTitle, /*[in,defaultvalue("")]*/ WString szText) {
+        return AU3_WinWaitActive(szTitle, /*[in,defaultvalue("")]*/ szText, 0);
+    }
+
+    int AU3_WinWaitActive(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nTimeout);
+
+    int AU3_WinWaitActiveByHandle(HWND hWnd, int nTimeout);
+
+    default int AU3_WinWaitClose(WString szTitle, /*[in,defaultvalue("")]*/ WString szText) {
+        return AU3_WinWaitClose(szTitle, /*[in,defaultvalue("")]*/ szText, 0);
+    }
+
+    int AU3_WinWaitClose(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nTimeout);
+
     int AU3_WinWaitCloseByHandle(HWND hWnd, int nTimeout);
 
     int AU3_WinWaitNotActive(WString szTitle, /*[in,defaultvalue("")]*/ WString szText, int nTimeout);
 }
-
-
