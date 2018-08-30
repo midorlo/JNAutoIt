@@ -20,9 +20,10 @@ This will require a windows >=8 host.
 
 ### Dependencies
 
-* [Java Native Access](https://github.com/java-native-access/jna) 
-* [TestNG](https://testng.org/doc/index.html)
+* [Java Native Access(bundled via Maven)](https://github.com/java-native-access/jna) 
+* [TestNG(bundled via Maven)](https://testng.org/doc/index.html)
 * [AutoItX(Bundled)](https://www.autoitscript.com/site/autoit/downloads/)
+
 
 ## Usage
 
