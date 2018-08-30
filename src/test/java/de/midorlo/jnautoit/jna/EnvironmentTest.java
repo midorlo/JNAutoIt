@@ -30,9 +30,13 @@ public class EnvironmentTest {
     @Test
     public void testEnvironment() {
         System.out.println("testEnvironment");
+        String expResult  = null;
         String expResult1 = "Windows 10";
         String expResult2 = "Windows 8";
-        String result = System.getProperty("os.name");
-        Assert.assertTrue(result.equals(expResult1) || result.equals(expResult2));
+        String expResult3 = "Windows Server 2012"; //Appveyor
+        String result = System.getProperty("os.name");        
+        Assert.assertTrue((expResult = expResult1).equals(result) 
+                ||(expResult = expResult2).equals(result) 
+                ||(expResult = expResult2).equals(result));
     }
 }
