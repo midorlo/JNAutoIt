@@ -10,10 +10,9 @@ init:
   - git config --global core.autocrlf true
 
 build_script:
-  - mvn clean package --batch-mode -DskipTest
+  - mvn clean package --batch-mode -DskipTest -Djna.nosys=true 
 test_script:
-  - mvn clean verify --batch-mode
-
+  - mvn -q -B clean verify -Djna.nosys=true 
 cache:
   - C:\maven\
   - C:\Users\appveyor\.m2
