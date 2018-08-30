@@ -34,7 +34,7 @@ public class EnvironmentTest {
         String expResult  = null;
         String expResult1 = "Windows 10";
         String expResult2 = "Windows 8";
-        String expResult3 = "Windows Server 2012"; //Appveyor
+        String expResult3 = "Windows Server 2012 R2"; //Appveyor
         String result = System.getProperty("os.name");        
         Assert.assertTrue((expResult = expResult1).equals(result) 
                 ||(expResult = expResult2).equals(result) 
