@@ -69,4 +69,8 @@ class AutoItXLibraryGenerator {
         }
         return r;
     }
+    
+    public static void main(String[] args) {
+        printJavaMethods();
+    }
 }
