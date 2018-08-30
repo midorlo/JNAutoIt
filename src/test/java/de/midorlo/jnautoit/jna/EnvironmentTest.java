@@ -30,6 +30,7 @@ public class EnvironmentTest {
     @Test
     public void testEnvironment() {
         System.out.println("testEnvironment");
+        System.out.println("on " + System.getProperty("os.name") );
         String expResult  = null;
         String expResult1 = "Windows 10";
         String expResult2 = "Windows 8";
