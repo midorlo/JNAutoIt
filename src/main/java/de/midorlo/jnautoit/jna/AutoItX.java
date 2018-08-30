@@ -22,6 +22,7 @@ import com.sun.jna.platform.win32.WTypes.LPWSTR;
 import com.sun.jna.platform.win32.WinDef.DWORD;
 import com.sun.jna.platform.win32.WinDef.HWND;
 import com.sun.jna.platform.win32.WinDef.RECT;
+import static de.midorlo.jnautoit.jna.Constants.DLL;
 
 /**
  *
@@ -33,7 +34,7 @@ public class AutoItX implements AutoItXLibrary {
     private static AutoItX INSTANCE;
 
     AutoItX() {
-        LIB = (AutoItXLibrary) Native.loadLibrary(("AutoItX3_x64.dll"), AutoItXLibrary.class);
+        LIB = (AutoItXLibrary) Native.loadLibrary(DLL, AutoItXLibrary.class);
         LIB.AU3_Init();
         INSTANCE = this;
     }

@@ -36,4 +36,6 @@ public class Constants {
     public static final int SW_SHOWNOACTIVATE = 12;
     public static final int SW_SHOWNORMAL = 13;
     public static final int VERSION = 109;
+    
+    public static final String DLL = (System.getProperty("os.arch").equals("amd64")?"AutoItX3_x64.dll":"AutoItX3.dll");
 }
