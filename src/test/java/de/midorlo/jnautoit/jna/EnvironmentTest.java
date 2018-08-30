@@ -38,6 +38,6 @@ public class EnvironmentTest {
         String result = System.getProperty("os.name");        
         Assert.assertTrue((expResult = expResult1).equals(result) 
                 ||(expResult = expResult2).equals(result) 
-                ||(expResult = expResult2).equals(result));
+                ||(expResult = expResult3).equals(result));
     }
 }
