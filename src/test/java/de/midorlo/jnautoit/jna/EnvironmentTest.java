@@ -36,8 +36,10 @@ public class EnvironmentTest {
         String expResult2 = "Windows 8";
         String expResult3 = "Windows Server 2012 R2"; //Appveyor
         String result = System.getProperty("os.name");        
-        Assert.assertTrue((expResult = expResult1).equals(result) 
+        Assert.assertTrue(
+                  (expResult = expResult1).equals(result) 
                 ||(expResult = expResult2).equals(result) 
-                ||(expResult = expResult3).equals(result));
+                ||(expResult = expResult3).equals(result)
+        );
     }
 }
