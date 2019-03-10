@@ -8,9 +8,14 @@ without doing the COM registration. This project is also tracked in a [fork](htt
 of the genuine [JNAutoIt - Java Native Access for AutoIt](https://github.com/midorlo/JNAutoIt)
 but since code differences are somewhat big, no upstream PR is available at this time.
 
+that are exported from the vendor dll which can be e.g. installed from
+[Nuget package for AutoitX](https://www.nuget.org/packages/AutoItX/) with no
+COM dll registration nor application installation.
 ### Project Goals
 
-The project adds a more java-friendly methods like
+Unfortunately for the Java developer the original `AutoItXLibrary` interface method signatures are too low level
+
+This project adds a few more java-friendly methods like
 ```java
 public String WinGetText(String title, String text) {
 // ...
@@ -30,12 +35,22 @@ Retrieves the text from a window.
 
 WinGetText ( "title" [, "text"] )
 ```
-Currently converted to java-friendly signatures:
+to `AutoItX`.  This greately simplifies interacting with AutoIt, see below.
 
-* `WinClose`
-* `WinGetText`
-* `WinWaitActive`
-* `Send`
+Currently extended with Java-friendly signatures are the following metods:
+
+  * `AutoItSetOption`
+  * `ControlSend`
+  * `Run`
+  * `Send`
+  * `WinActivate`
+  * `WinActive`
+  * `WinClose`
+  * `WinExists`
+  * `WinGetText`
+  * `WinGetTitle`
+  * `WinKill`
+  * `WinWaitActive`
 
 This addresses the anticipated needs of AutoIt with Selenium testing.
 
@@ -98,6 +113,8 @@ import example.AutoItX;
 		instance.WinClose(title, text);
 ```
 ### See Also
+
+  * [Java Native Access](https://github.com/java-native-access/jna) project on github
   * [Index of /autoit3/docs/functions](https://www.autoitscript.com/autoit3/docs/functions/)
   * Powershell iAutoIt cmdlets [documentation](https://www.autoitconsulting.com/site/scripting/autoit-cmdlets-for-windows-powershell/)
   * [Autoit forum (in Russian)](http://autoit-script.ru/index.php).
