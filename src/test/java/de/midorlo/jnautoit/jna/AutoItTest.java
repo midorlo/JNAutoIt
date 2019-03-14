@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example;
+package de.midorlo.jnautoit.jna;
 
 import org.testng.Assert;
 
@@ -21,6 +21,9 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.fail;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -43,6 +46,7 @@ public class AutoItTest {
 	private String text = "";
 	private String result = null;
 	private AutoItX instance = null;
+	private static final boolean debug = true;
 
 	@BeforeMethod
 	public void beforeMethod() {
@@ -54,7 +58,7 @@ public class AutoItTest {
 		// cleanup of instance ?
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testCloseOpenFileDialog() {
 		System.err.println("Close File Dialog");
 		title = "Open"; // title will become "Save"
@@ -62,6 +66,20 @@ public class AutoItTest {
 	}
 
 	@Test(enabled = true)
+	public void testClipboard() {
+		System.err.println("Put and get data using Clipboard");
+		String dataPut = "example";
+		try {
+			instance.ClipPut(dataPut);
+			String dataGet = instance.ClipGet();
+			Assert.assertTrue(dataGet.equals(dataPut));
+		} catch (Exception e) {
+			// Corrupted stdin stream in forked JVM 1. Stream '#' - solved.
+			System.err.println("Exception " + e.toString());
+		}
+	}
+
+	@Test(enabled = false)
 	public void testZoomFirefoxBrowser() {
 		System.err.println("Close Mozilla Firefox Browser");
 		title = "Mozilla Firefox Start Page";
@@ -108,19 +126,15 @@ public class AutoItTest {
 
 	@Test(enabled = true)
 	public void testEnvironment() {
-		System.err
-				.println("Test OS Environment on " + System.getProperty("os.name"));
-		String expResult = null;
+		System.err.println("OS test is Running: " + System.getProperty("os.name"));
 		String result = System.getProperty("os.name");
-		Assert.assertTrue((expResult = "Windows 10").equals(result)
-				|| (expResult = "Windows 8").equals(result)
-				|| (expResult = "Windows 8.1").equals(result)
-				|| (expResult = "Windows 7").equals(result)
-				|| (expResult = "Windows Server 2012 R2").equals(result));
 
-		// NOTE: anyOf(containsString(expResult1),...) does not work with testng ?
+		List<String> osNames = (List<String>) Arrays.asList("Windows 10",
+				"Windows 8", "Windows 8.1", "Windows 7", "Windows Server 2012 R2");
+		Assert.assertTrue(osNames.contains(result));
 		// see also:
 		// https://www.programcreek.com/java-api-examples/index.php?api=org.hamcrest.core.AnyOf
+		// NOTE: anyOf(containsString(expResult1),...) does not work with testng ?
 	}
 
 	public void sleep(Integer milliSeconds) {

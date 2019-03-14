@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package example;
+package de.midorlo.jnautoit.jna;
 
-import static example.Constants.AU3_INTDEFAULT;
-import static example.Constants.SW_SHOWNORMAL;
+import static de.midorlo.jnautoit.jna.Constants.AU3_INTDEFAULT;
+import static de.midorlo.jnautoit.jna.Constants.SW_SHOWNORMAL;
 
 import com.sun.jna.Library;
 import com.sun.jna.Pointer;
@@ -429,4 +429,6 @@ interface AutoItXLibrary extends Library {
 	int AU3_WinWaitCloseByHandle(HWND hWnd, int nTimeout);
 
 	int AU3_WinWaitNotActive(WString szTitle, WString szText, int nTimeout);
+
 }
+	
