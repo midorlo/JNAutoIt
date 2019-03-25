@@ -42,106 +42,106 @@ import com.sun.jna.WString;
  */
 public class AutoItTest {
 
-	private String title = null;
-	private String text = "";
-	private String result = null;
-	private AutoItX instance = null;
-	private static final boolean debug = true;
+    private String title = null;
+    private String text = "";
+    private String result = null;
+    private AutoItX instance = null;
+    private static final boolean debug = true;
 
-	@BeforeMethod
-	public void beforeMethod() {
-		instance = AutoItX.getInstance();
-	}
+    @BeforeMethod
+    public void beforeMethod() {
+        instance = AutoItX.getInstance();
+    }
 
-	@AfterMethod
-	public void afterMethod() {
-		// cleanup of instance ?
-	}
+    @AfterMethod
+    public void afterMethod() {
+        // cleanup of instance ?
+    }
 
-	@Test(enabled = false)
-	public void testCloseOpenFileDialog() {
-		System.err.println("Close File Dialog");
-		title = "Open"; // title will become "Save"
-		assertFalse(instance.WinClose(title, text));
-	}
+    @Test(enabled = false)
+    public void testCloseOpenFileDialog() {
+        System.err.println("Close File Dialog");
+        title = "Open"; // title will become "Save"
+        assertFalse(instance.WinClose(title, text));
+    }
 
-	@Test(enabled = true)
-	public void testClipboard() {
-		System.err.println("Put and get data using Clipboard");
-		String dataPut = "example";
-		try {
-			instance.ClipPut(dataPut);
-			String dataGet = instance.ClipGet();
-			Assert.assertTrue(dataGet.equals(dataPut));
-		} catch (Exception e) {
-			// Corrupted stdin stream in forked JVM 1. Stream '#' - solved.
-			System.err.println("Exception " + e.toString());
-		}
-	}
+    @Test(enabled = true)
+    public void testClipboard() {
+        System.err.println("Put and get data using Clipboard");
+        String dataPut = "example";
+        try {
+            instance.ClipPut(dataPut);
+            String dataGet = instance.ClipGet();
+            Assert.assertTrue(dataGet.equals(dataPut));
+        } catch (Exception e) {
+            // Corrupted stdin stream in forked JVM 1. Stream '#' - solved.
+            System.err.println("Exception " + e.toString());
+        }
+    }
 
-	@Test(enabled = false)
-	public void testZoomFirefoxBrowser() {
-		System.err.println("Close Mozilla Firefox Browser");
-		title = "Mozilla Firefox Start Page";
-		instance.AutoItSetOption("SendKeyDownDelay", 30);
-		instance.AutoItSetOption("SendKeyDelay", 10);
-		// zoom out four times
-		for (int cnt = 0; cnt != 4; cnt++) {
-			instance.Send("^-", true);
-			sleep(1000);
-		}
-		// zoom 100 %
-		instance.Send("^0", true);
-		sleep(1000);
-		// CTLR + is a bit tricky since the '+' itself has a special meaning
-		// zoom in 2 times
-		instance.Send("^{+}^{+}", true);
-		sleep(1000);
-		instance.WinClose(title, text);
-	}
+    @Test(enabled = false)
+    public void testZoomFirefoxBrowser() {
+        System.err.println("Close Mozilla Firefox Browser");
+        title = "Mozilla Firefox Start Page";
+        instance.AutoItSetOption("SendKeyDownDelay", 30);
+        instance.AutoItSetOption("SendKeyDelay", 10);
+        // zoom out four times
+        for (int cnt = 0; cnt != 4; cnt++) {
+            instance.Send("^-", true);
+            sleep(1000);
+        }
+        // zoom 100 %
+        instance.Send("^0", true);
+        sleep(1000);
+        // CTLR + is a bit tricky since the '+' itself has a special meaning
+        // zoom in 2 times
+        instance.Send("^{+}^{+}", true);
+        sleep(1000);
+        instance.WinClose(title, text);
+    }
 
-	@Test(enabled = true)
-	public void testProvidePathToOpenFile() {
-		System.err.println("Provide Path to Open File");
-		title = "Open";
-		// customized to exercise shift modifier
-		String filePath = "D:\\AutoIT-commands\\TestingV+i+d+e+o.mp4";
-		instance.WinWaitActive(title, text);
-		// will successfully send a shift key
-		instance.Send(filePath, true);
-		sleep(100);
-		instance.Send("\n"); // "{ENTER}"
-		result = instance.WinGetText(title, text);
-		assertThat(result, notNullValue());
-		// TODO: get actual dialog text
-		// currently receiving the text of the button having the focus ("OK")
-		System.err.println("Result is: " + result);
-		sleep(100);
-		// close the "file not found" sub-dialog
-		instance.WinClose(title, text);
-		sleep(100);
-		// close the file open dialog
-		assertTrue(instance.WinClose(title, text));
-	}
+    @Test(enabled = true)
+    public void testProvidePathToOpenFile() {
+        System.err.println("Provide Path to Open File");
+        title = "Open";
+        // customized to exercise shift modifier
+        String filePath = "D:\\AutoIT-commands\\TestingV+i+d+e+o.mp4";
+        instance.WinWaitActive(title, text);
+        // will successfully send a shift key
+        instance.Send(filePath, true);
+        sleep(100);
+        instance.Send("\n"); // "{ENTER}"
+        result = instance.WinGetText(title, text);
+        assertThat(result, notNullValue());
+        // TODO: get actual dialog text
+        // currently receiving the text of the button having the focus ("OK")
+        System.err.println("Result is: " + result);
+        sleep(100);
+        // close the "file not found" sub-dialog
+        instance.WinClose(title, text);
+        sleep(100);
+        // close the file open dialog
+        assertTrue(instance.WinClose(title, text));
+    }
 
-	@Test(enabled = true)
-	public void testEnvironment() {
-		System.err.println("OS test is Running: " + System.getProperty("os.name"));
-		String result = System.getProperty("os.name");
+    @Test(enabled = true)
+    public void testEnvironment() {
+        System.err.println("OS test is Running: " + System.getProperty("os.name"));
+        String result = System.getProperty("os.name");
 
-		List<String> osNames = (List<String>) Arrays.asList("Windows 10",
-				"Windows 8", "Windows 8.1", "Windows 7", "Windows Server 2012 R2");
-		Assert.assertTrue(osNames.contains(result));
-		// see also:
-		// https://www.programcreek.com/java-api-examples/index.php?api=org.hamcrest.core.AnyOf
-		// NOTE: anyOf(containsString(expResult1),...) does not work with testng ?
-	}
+        List<String> osNames = (List<String>) Arrays.asList("Windows 10",
+                "Windows 8", "Windows 8.1", "Windows 7", "Windows Server 2012 R2");
+        Assert.assertTrue(osNames.contains(result));
+        // see also:
+        // https://www.programcreek.com/java-api-examples/index.php?api=org.hamcrest.core.AnyOf
+        // NOTE: anyOf(containsString(expResult1),...) does not work with testng ?
+    }
 
-	public void sleep(Integer milliSeconds) {
-		try {
-			Thread.sleep((long) milliSeconds);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+    public void sleep(Integer milliSeconds) {
+        try {
+            Thread.sleep((long) milliSeconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

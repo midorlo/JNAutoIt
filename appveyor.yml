@@ -1,0 +1,18 @@
+os: Windows Server 2012
+
+version: '{build}'
+
+branches:
+  only:
+    - master
+
+init:
+  - git config --global core.autocrlf true
+
+build_script:
+  - mvn clean package --batch-mode -DskipTest -Djna.nosys=true 
+test_script:
+  - mvn -q -B clean verify -Djna.nosys=true 
+cache:
+  - C:\maven\
+  - C:\Users\appveyor\.m2
