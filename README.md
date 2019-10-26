@@ -267,11 +267,15 @@ Dump of file AutoItX3_x64.dll
 ```
 ### See Also
 
+  * Older Autoit [home page](https://www.autoitscript.com/site/)
   * [Java Native Access](https://github.com/java-native-access/jna) project on github
   * [Index of /autoit3/docs/functions](https://www.autoitscript.com/autoit3/docs/functions/)
-  * Powershell iAutoIt cmdlets [documentation](https://www.autoitconsulting.com/site/scripting/autoit-cmdlets-for-windows-powershell/)
-  * [Autoit forum (in Russian)](http://autoit-script.ru/index.php).
-  * [Misc. autoit-related topics in QA forum (in Russian, mostly)](https://automated-testing.info/search?q=autoit)
+  * Powershell AutoIt cmdlets [documentation](https://www.autoitconsulting.com/site/scripting/autoit-cmdlets-for-windows-powershell/)
+  * Russian Autoit tester community [documentation](http://forum.ru-board.com/topic.cgi?forum=5&limit=1&m=9&start=0&topic=33902)(in Russian)
+  * [Autoit forum](https://www.autoitscript.com/forum/forum/35-windows-client/)
+  * [Autoit forum](http://autoit-script.ru/index.php)(in Russian)
+  * Misc. autoit-related topics in [QA forum](https//automated-testing.info/search?q=autoit)(in Russian)
+  * Yet another [Autoit forum](http://www.cyberforum.ru/autoit/) (in Russian)
 
 ### License
 This project is licensed under the terms of the MIT license.

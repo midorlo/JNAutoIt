@@ -1,5 +1,6 @@
 /*
- * Copyright 2018 midorlo.
+ * Copyright 2018 midorlo. 
+ * Copyright 2019 sergueik
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,9 +46,9 @@ public class AutoItX implements AutoItXLibrary {
 		this.debug = value;
 	}
 
+	@SuppressWarnings("deprecation")
 	AutoItX() {
-		LIB = (AutoItXLibrary) Native.loadLibrary(Constants.DLL,
-				AutoItXLibrary.class);
+		LIB = Native.loadLibrary(Constants.DLL, AutoItXLibrary.class);
 		LIB.AU3_Init();
 		INSTANCE = this;
 	}
@@ -310,9 +311,8 @@ public class AutoItX implements AutoItXLibrary {
 	}
 
 	public boolean WinSetState(String title, String text, int flag) {
-		List<Integer> sw_flags = (List<Integer>) Arrays.asList(Constants.SW_HIDE,
-				Constants.SW_SHOW, Constants.SW_MINIMIZE, Constants.SW_MAXIMIZE,
-				Constants.SW_RESTORE);
+		List<Integer> sw_flags = Arrays.asList(Constants.SW_HIDE, Constants.SW_SHOW,
+				Constants.SW_MINIMIZE, Constants.SW_MAXIMIZE, Constants.SW_RESTORE);
 		/* TODO:
 		Constants.SW_DISABLE,
 		Constants.SW_ENABLE
@@ -449,9 +449,20 @@ public class AutoItX implements AutoItXLibrary {
 		return LIB.AU3_Shutdown(arg0);
 	}
 
+	// https://www.autoitscript.com/autoit3/docs/functions/WinGetPos.htm
+	// https://java-native-access.github.io/jna/4.2.1/com/sun/jna/platform/win32/WinDef.RECT.html
 	@Override
 	public int AU3_WinGetPos(WString title, WString text, RECT rect) {
 		return LIB.AU3_WinGetPos(title, text, rect);
+	}
+
+	public RECT WinGetPos(WString title, WString text) {
+		RECT rect = new RECT();
+		if (LIB.AU3_WinGetPos(title, text, rect) == Constants.AU3_SUCCESS) {
+			return rect;
+		} else {
+			return (RECT) null;
+		}
 	}
 
 	@Override
@@ -643,15 +654,14 @@ public class AutoItX implements AutoItXLibrary {
 	}
 
 	// https://www.autoitscript.com/autoit3/docs/functions/ProcessExists.htm
-	// NOTE:  returns 0 if the process does not exist, and PID when process exists
+	// NOTE: returns 0 if the process does not exist, and PID when process exists
 	@Override
 	public int AU3_ProcessExists(WString process) {
 		return LIB.AU3_ProcessExists(process);
 	}
 
 	public boolean ProcessExists(String process) {
-		return (LIB
-				.AU3_ProcessExists(new WString(process)) != 0);
+		return (LIB.AU3_ProcessExists(new WString(process)) != 0);
 	}
 
 	@Override

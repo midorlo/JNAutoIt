@@ -20,7 +20,9 @@ import com.sun.jna.IntegerType;
 /**
  *
  * @author midorlo
+ * @author sergueik
  */
+@SuppressWarnings("serial")
 public class UnsignedInt extends IntegerType {
     public UnsignedInt() {
          super(4, true);
