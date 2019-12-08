@@ -1,3 +1,5 @@
+**/resources/*dll
+**/resources/LICENSE
 /target/
 /nb-configuration.xml
 /nbactions.xml

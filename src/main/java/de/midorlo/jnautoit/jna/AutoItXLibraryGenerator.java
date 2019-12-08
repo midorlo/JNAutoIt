@@ -71,6 +71,8 @@ class AutoItXLibraryGenerator {
     }
     
     public static void main(String[] args) {
+        String libraryPath = System.getProperty("user.dir");
+        System.setProperty("java.library.path", libraryPath);
         printJavaMethods();
     }
 }
